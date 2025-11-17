@@ -1,27 +1,29 @@
-# 🎭 MaskGuard AI - Face Mask Detection System
+# MaskGuard AI - Sistem Deteksi Masker Wajah
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.0%2B-orange)
 ![Keras](https://img.shields.io/badge/Keras-Deep%20Learning-red)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-## Overview
+## Gambaran Umum
 
-**MaskGuard AI** is an intelligent computer vision system that automatically detects face masks and classifies them into three categories with high accuracy. Built with Transfer Learning using MobileNetV2, this system helps enforce safety protocols in public spaces.
+**MaskGuard AI** adalah sistem visi komputer cerdas yang secara otomatis mendeteksi masker wajah dan mengklasifikasikannya ke dalam tiga kategori dengan akurasi tinggi. Dibangun dengan Transfer Learning menggunakan MobileNetV2, sistem ini membantu menegakkan protokol keselamatan di ruang publik.
 
-## Features
+## Fitur Utama
 
-- **Triple Classification**: Detects three mask conditions:
-  - **With Mask** - Properly wearing mask
-  - **Mask Weared Incorrect** - Improper mask usage
-  - **Without Mask** - No mask detected
+- **Klasifikasi Tiga Kategori**: Mendeteksi tiga kondisi masker:
+  - **With Mask** - Menggunakan masker dengan benar
+  - **Mask Weared Incorrect** - Penggunaan masker tidak tepat
+  - **Without Mask** - Tidak terdeteksi masker
 
-- ** High Accuracy**: Achieves over 95% accuracy on validation sets
-- ** Real-time Ready**: Optimized for real-time deployment
-- ** Mobile-Friendly**: Uses lightweight MobileNetV2 architecture
-- ** Data Augmentation**: Enhanced training with image transformations
+- **Akurasi Tinggi**: Mencapai akurasi lebih dari 95% pada data validasi
+- **Siap Real-time**: Dioptimalkan untuk deployment real-time
+- **Ramah Perangkat Mobile**: Menggunakan arsitektur MobileNetV2 yang ringan
+- **Augmentasi Data**: Peningkatan training dengan transformasi gambar
 
-## 📊 Model Architecture
+## Arsitektur Model
+
+```
 Input (224x224x3)
 ↓
 MobileNetV2 (Base)
@@ -31,11 +33,11 @@ Global Average Pooling
 Dense (128, ReLU)
 ↓
 Output (3, Softmax) → [Incorrect, With_Mask, Without_Mask]
+```
 
+## Instalasi
 
-## Installation
-
-### Prerequisites
+### Prasyarat Sistem
 ```bash
 Python 3.8+
 TensorFlow 2.0+
@@ -43,18 +45,24 @@ OpenCV
 NumPy
 Matplotlib
 Scikit-learn
-Clone Repository
-bash
+```
+
+### Clone Repository
+```bash
 git clone https://github.com/yourusername/maskguard-ai.git
 cd maskguard-ai
-Install Dependencies
-bash
+```
+
+### Install Dependencies
+```bash
 pip install -r requirements.txt
+```
 
-Dataset Structure
-The dataset should be organized as follows:
+## Struktur Dataset
 
-text
+Dataset harus diorganisir dengan struktur berikut:
+
+```
 Dataset/
 ├── with_mask/
 │   ├── image1.jpg
@@ -66,38 +74,46 @@ Dataset/
 └── mask_weared_incorrect/
     ├── image1.jpg
     └── ...
+```
 
-Usage
-1. Training the Model
-python
+## Penggunaan
+
+### 1. Training Model
+```python
 from maskguard import MaskDetector
 
-# Initialize detector
+# Inisialisasi detector
 detector = MaskDetector()
 
-# Train model
+# Training model
 history = detector.train(
     dataset_path="/path/to/dataset",
     epochs=10,
     validation_split=0.2
 )
-2. Making Predictions
-python
-# Load trained model
+```
+
+### 2. Melakukan Prediksi
+```python
+# Load model yang sudah ditraining
 model = detector.load_model("face_mask_model.h5")
 
-# Predict single image
+# Prediksi gambar tunggal
 result = detector.predict_image("test_image.jpg")
 print(f"Prediction: {result['class']}")
 print(f"Confidence: {result['confidence']:.4f}")
-3. Real-time Detection
-python
-# Start webcam detection
-detector.start_webcam()
+```
 
-Performance Metrics
-Classification Report
-text
+### 3. Deteksi Real-time
+```python
+# Memulai deteksi webcam
+detector.start_webcam()
+```
+
+## Metrik Kinerja
+
+### Laporan Klasifikasi
+```
                       precision    recall  f1-score   support
 
 mask_weared_incorrect       0.96      0.94      0.95       320
@@ -107,26 +123,34 @@ mask_weared_incorrect       0.96      0.94      0.95       320
             accuracy                           0.96      1070
            macro avg       0.96      0.96      0.96      1070
         weighted avg       0.96      0.96      0.96      1070
+```
 
-Training History
-https://images/training_history.png
+### Grafik Training
+![Training History](images/training_history.png)
 
-Confusion Matrix
-https://images/confusion_matrix.png
+### Matriks Konfusi
+![Confusion Matrix](images/confusion_matrix.png)
 
-Demo
-Single Image Prediction
-bash
+## Demo
+
+### Prediksi Gambar Tunggal
+```bash
 python demo.py --image test_image.jpg
-Webcam Real-time Detection
-bash
-python webcam_demo.py
-Batch Processing
-bash
-python batch_process.py --input_folder images/ --output_folder results/
+```
 
-Project Structure
-text
+### Deteksi Real-time Webcam
+```bash
+python webcam_demo.py
+```
+
+### Proses Batch
+```bash
+python batch_process.py --input_folder images/ --output_folder results/
+```
+
+## Struktur Proyek
+
+```
 maskguard-ai/
 ├── models/
 │   ├── face_mask_model.h5
@@ -145,38 +169,82 @@ maskguard-ai/
 ├── requirements.txt
 ├── train_model.ipynb
 └── README.md
+```
 
-Customization
-Adding New Classes
-python
-# Modify the output layer for new classes
-model = MaskDetector(num_classes=4)  # Add new class
-Changing Base Model
-python
-# Use different pre-trained models
+## Kustomisasi
+
+### Menambah Kelas Baru
+```python
+# Modifikasi output layer untuk kelas baru
+model = MaskDetector(num_classes=4)  # Tambah kelas baru
+```
+
+### Mengganti Base Model
+```python
+# Gunakan model pre-trained yang berbeda
 detector = MaskDetector(base_model='ResNet50')
+```
 
-Applications
-Healthcare Facilities: Monitor mask compliance in hospitals
-Office Buildings: Ensure workplace safety protocols
-Retail Stores: Automated entry control
-Educational Institutions: Campus safety monitoring
-Public Transportation: Mass transit safety enforcement
-Contributing
+## Aplikasi
 
-We welcome contributions! Please see our Contributing Guide for details.
+- **Fasilitas Kesehatan**: Memantau kepatuhan masker di rumah sakit
+- **Gedung Perkantoran**: Memastikan protokol keselamatan tempat kerja
+- **Toko Ritel**: Kontrol akses masuk otomatis
+- **Lembaga Pendidikan**: Monitoring keamanan kampus
+- **Transportasi Publik**: Penegakan keselamatan angkutan massal
 
-Fork the project
-Create your feature branch (git checkout -b feature/AmazingFeature)
-Commit your changes (git commit -m 'Add some AmazingFeature')
-Push to the branch (git push origin feature/AmazingFeature)
-Open a Pull Request
+## Berkontribusi
 
-License
-This project is licensed under the MIT License - see the LICENSE file for details.
+Kami menerima kontribusi! Silakan lihat Panduan Berkontribusi untuk detail.
 
-Acknowledgments
-MobileNetV2 by Google Research
-TensorFlow & Keras teams
-Dataset providers and contributors
-OpenCV community for computer vision tools
+1. Fork proyek ini
+2. Buat feature branch (`git checkout -b feature/FiturAnda`)
+3. Commit perubahan Anda (`git commit -m 'Tambahkan FiturAnda'`)
+4. Push ke branch (`git push origin feature/FiturAnda`)
+5. Buat Pull Request
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah Lisensi MIT - lihat file LICENSE untuk detail.
+
+## Pengakuan
+
+- MobileNetV2 oleh Google Research
+- Tim TensorFlow & Keras
+- Penyedia dataset dan kontributor
+- Komunitas OpenCV untuk tools visi komputer
+
+## Troubleshooting
+
+### Masalah Umum
+
+1. **Memory Error saat Training**
+   - Kurangi batch size
+   - Gunakan data generator
+
+2. **Webcam Tidak Terdeteksi**
+   - Periksa koneksi kamera
+   - Pastikan OpenCV terinstall dengan dukungan webcam
+
+3. **Akurasi Rendah**
+   - Tambah data training
+   - Adjust hyperparameter
+   - Coba augmentasi data yang berbeda
+
+## Dukungan
+
+Untuk pertanyaan dan bantuan teknis:
+
+- Dokumentasi: [Link ke dokumentasi lengkap]
+- Issues: [GitHub Issues page]
+- Email: support@maskguard-ai.com
+
+## Versi
+
+- **v1.0.0** - Rilis stabil pertama
+- **v1.1.0** - Optimasi performa real-time
+- **v1.2.0** - Tambahan model architecture
+
+## Pembaruan Terakhir
+
+Terakhir diperbarui: November 2025
